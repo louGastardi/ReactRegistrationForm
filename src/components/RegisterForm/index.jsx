@@ -1,60 +1,60 @@
-import { Button, FormControlLabel, Switch, TextField } from '@mui/material';
-import { useState } from 'react';
+import { Button, Step, StepLabel, Stepper, Typography } from '@mui/material';
+import AdressForm from '../AdressForm';
+import PersonalData from '../PersonalData';
+import UserData from '../UserData';
+import { useEffect, useState } from 'react';
 
-export default function RegisterForm() {
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [cpf, setCpf] = useState(0);
-  const [newsletter, setNewsletter] = useState(false);
-  const [sales, setSales] = useState(true);
-  const [error, setError] = useState({ cpf: { error: false, errorText: '' } });
+export default function RegisterForm({ validation, handleSubmit }) {
+  const [step, setStep] = useState(0);
+  const [data, setData] = useState({});
 
-  const handleName = (event) => {
-    setName(event.target.value);
-    console.log(name);
-    return;
-  };
-  const handleEmail = (event) => setEmail(event.target.value);
-  const handleCpf = (event) => setCpf(event.target.value);
-  const handleClick = (event) => {
-    event.preventDefault();
-    console.log(name, email, cpf, newsletter, sales);
-    return;
-  };
-  const handleNewsletter = (event) => setNewsletter(event.target.checked);
-  const handleSales = (event) => setSales(event.target.checked);
+  const forms = [
+    <UserData handleSubmit={collectData} validation={validation} />,
+    <PersonalData handleSubmit={collectData} validation={validation} />,
+    <AdressForm handleSubmit={collectData} validation={validation} />,
+    <>
+      <Typography variant="h5" margin="2rem" align="center">
+        {' '}
+        Registration completed successfully!
+      </Typography>
+      <Button variant="outlined" fullWidth>
+        Go back
+      </Button>
+    </>,
+  ];
 
-  const handleError = () => {
-    if (cpf.length !== 11) {
-      setError({ cpf: { error: true, errorText: 'The CPF needs to be 11 characters long!' } });
-    } else {
-      setError({ cpf: { error: false, errorText: '' } });
+  useEffect(() => {
+    if (step === forms.length - 1) {
+      handleSubmit(data);
     }
-  };
+  });
+
+  function collectData(collectedData) {
+    setData({ ...data, ...collectedData });
+    nextStep();
+  }
+
+  function nextStep() {
+    setStep(step + 1);
+  }
 
   return (
     <>
-      <form>
-        <TextField id="name" label="Name" variant="outlined" fullWidth margin="dense" required onChange={handleName} />
-        <TextField type="email" id="email" label="Email" fullWidth margin="dense" variant="outlined" onChange={handleEmail} />
-        <TextField
-          type="text"
-          id="cpf"
-          label="CPF"
-          fullWidth
-          margin="dense"
-          variant="outlined"
-          onChange={handleCpf}
-          onBlur={handleError}
-          error={error.cpf.error}
-          helperText={error.cpf.errorText}
-        />
-        <FormControlLabel label="Newsletter" control={<Switch name="Newsletter" checked={newsletter} onChange={handleNewsletter} />} />
-        <FormControlLabel label="Sales" control={<Switch name="Sales" checked={sales} onChange={handleSales} />} />
-        <Button variant="outlined" fullWidth onClick={handleClick}>
-          Register now!
-        </Button>
-      </form>
+      <Stepper activeStep={step}>
+        <Step>
+          <StepLabel>Login</StepLabel>
+        </Step>
+        <Step>
+          <StepLabel>ID</StepLabel>
+        </Step>
+        <Step>
+          <StepLabel>Adress</StepLabel>
+        </Step>
+        <Step>
+          <StepLabel>Finish</StepLabel>
+        </Step>
+      </Stepper>
+      {forms[step]}
     </>
   );
 }
