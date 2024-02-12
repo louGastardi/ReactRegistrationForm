@@ -1,8 +1,10 @@
-import { Button, Step, StepLabel, Stepper, Typography } from '@mui/material';
+import { Step, StepLabel, Stepper, Typography } from '@mui/material';
 import AdressForm from '../AdressForm';
-import PersonalData from '../PersonalData';
+import Content from '../Content';
 import UserData from '../UserData';
 import { useEffect, useState } from 'react';
+import Lottie from 'lottie-react';
+import animationData from '../../Congrats.json';
 
 export default function RegisterForm({ validation, handleSubmit }) {
   const [step, setStep] = useState(0);
@@ -10,16 +12,16 @@ export default function RegisterForm({ validation, handleSubmit }) {
 
   const forms = [
     <UserData handleSubmit={collectData} validation={validation} />,
-    <PersonalData handleSubmit={collectData} validation={validation} />,
-    <AdressForm handleSubmit={collectData} validation={validation} />,
+    <Content handleSubmit={collectData} prevStep={prevStep} />,
+    <AdressForm handleSubmit={collectData} prevStep={prevStep} />,
     <>
-      <Typography variant="h5" margin="2rem" align="center">
-        {' '}
+      <Typography variant="h5" marginTop="5rem" align="center">
         Registration completed successfully!
       </Typography>
-      <Button variant="outlined" fullWidth>
-        Go back
-      </Button>
+
+      <div style={{ display: 'flex', justifyContent: 'center' }}>
+        <Lottie animationData={animationData} style={{ maxWidth: '300px' }} />
+      </div>
     </>,
   ];
 
@@ -38,6 +40,10 @@ export default function RegisterForm({ validation, handleSubmit }) {
     setStep(step + 1);
   }
 
+  function prevStep() {
+    setStep(step - 1);
+  }
+
   return (
     <>
       <Stepper activeStep={step}>
@@ -45,7 +51,7 @@ export default function RegisterForm({ validation, handleSubmit }) {
           <StepLabel>Login</StepLabel>
         </Step>
         <Step>
-          <StepLabel>ID</StepLabel>
+          <StepLabel>Content</StepLabel>
         </Step>
         <Step>
           <StepLabel>Adress</StepLabel>

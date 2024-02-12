@@ -13,6 +13,7 @@ export default function UserData({ handleSubmit }) {
   const handlePassword = (event) => setPassword(event.target.value);
   const handlePasswordCheck = (event) => setPasswordCheck(event.target.value);
   const [error, handleValidation, canSubmit] = useErrors(validation);
+  const isNextButtonDisabled = !canSubmit() || !password || password !== passwordCheck;
 
   return (
     <>
@@ -59,7 +60,7 @@ export default function UserData({ handleSubmit }) {
           error={!error.passwordCheck.valid}
           helperText={error.passwordCheck.text}
         />
-        <Button type="submit" variant="outlined" align="right">
+        <Button type="submit" variant="outlined" align="right" disabled={isNextButtonDisabled}>
           Next
         </Button>
       </form>

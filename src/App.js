@@ -1,7 +1,7 @@
 import { Container, Typography } from '@mui/material';
 import RegisterForm from './components/RegisterForm';
 import '@fontsource/roboto/500.css';
-import { cpfValidation, passwordValidation, passwordCheck, emailValidation } from './models/validation';
+import { passwordValidation, passwordCheck, emailValidation } from './models/validation';
 import FormValidation from './context/FormValidation';
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
         Register Form
       </Typography>
 
-      <FormValidation.Provider value={{ cpf: cpfValidation, password: passwordValidation, passwordCheck: passwordCheck, email: emailValidation }}>
+      <FormValidation.Provider value={{ password: passwordValidation, passwordCheck: passwordCheck, email: emailValidation }}>
         <RegisterForm handleSubmit={onSubmitForm} />
       </FormValidation.Provider>
     </Container>

@@ -1,11 +1,3 @@
-function cpfValidation(cpf) {
-  if (cpf.length !== 11) {
-    return { valid: false, text: 'The CPF needs to be 11 characters long!' };
-  } else {
-    return { valid: true, text: '' };
-  }
-}
-
 function passwordValidation(password) {
   const passwordRegex = /^(?=.*[A-Z])(?=.*\d).{6,}$/;
   if (!passwordRegex.test(password)) {
@@ -32,4 +24,4 @@ function emailValidation(email) {
   }
 }
 
-export { cpfValidation, passwordValidation, passwordCheck, emailValidation };
+export { passwordValidation, passwordCheck, emailValidation };
