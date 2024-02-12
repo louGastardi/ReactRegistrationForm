@@ -36,7 +36,7 @@ export default function AdressForm({ handleSubmit, prevStep }) {
           />
           <TextField type="number" id="number" label="Number" variant="outlined" margin="dense" onChange={handleNumber} />
         </div>
-        <TextField type="string" id="PLZ" label="PLZ" variant="outlined" fullWidth margin="dense" onChange={handlePLZ} />
+        <TextField type="string" id="plz" label="PLZ" variant="outlined" fullWidth margin="dense" onChange={handlePLZ} />
         <TextField type="string" id="city" label="City" variant="outlined" fullWidth margin="dense" onChange={handleCity} />
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
           <Button variant="outlined" onClick={prevStep}>

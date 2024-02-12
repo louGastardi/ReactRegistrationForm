@@ -7,13 +7,11 @@ export default function UserData({ handleSubmit }) {
   const validation = useContext(FormValidation);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [passwordCheck, setPasswordCheck] = useState('');
 
   const handleEmail = (event) => setEmail(event.target.value);
   const handlePassword = (event) => setPassword(event.target.value);
-  const handlePasswordCheck = (event) => setPasswordCheck(event.target.value);
   const [error, handleValidation, canSubmit] = useErrors(validation);
-  const isNextButtonDisabled = !canSubmit() || !password || password !== passwordCheck;
+  const isNextButtonDisabled = !canSubmit();
 
   return (
     <>
@@ -35,6 +33,7 @@ export default function UserData({ handleSubmit }) {
           onBlur={handleValidation}
           error={!error.email.valid}
           helperText={error.email.text}
+          style={{ marginTop: '2em' }}
         />
         <TextField
           type="password"
@@ -47,19 +46,9 @@ export default function UserData({ handleSubmit }) {
           onBlur={handleValidation}
           error={!error.password.valid}
           helperText={error.password.text}
+          style={{ marginTop: '1em', marginBottom: '2em' }}
         />
-        <TextField
-          type="password"
-          id="passwordCheck"
-          label="Repeat Your Password"
-          variant="outlined"
-          fullWidth
-          margin="dense"
-          onChange={handlePasswordCheck}
-          onBlur={handleValidation}
-          error={!error.passwordCheck.valid}
-          helperText={error.passwordCheck.text}
-        />
+
         <Button type="submit" variant="outlined" align="right" disabled={isNextButtonDisabled}>
           Next
         </Button>

@@ -7,14 +7,6 @@ function passwordValidation(password) {
   }
 }
 
-function passwordCheck(password, passwordCheck) {
-  if (password !== passwordCheck) {
-    return { valid: false, text: "Passwords don't match!" };
-  } else {
-    return { valid: true, text: '' };
-  }
-}
-
 function emailValidation(email) {
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(email)) {
@@ -24,4 +16,4 @@ function emailValidation(email) {
   }
 }
 
-export { passwordValidation, passwordCheck, emailValidation };
+export { passwordValidation, emailValidation };
